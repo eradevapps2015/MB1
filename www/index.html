@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+	 <!-- google maps javascript -->
+   
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&sensor=true"></script>
+	
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+	  <script src="js/directives.js"></script>
+  </head>
+  <body ng-app="starter">
+
+    <ion-nav-bar animation="nav-title-slide-ios7" 
+                 type="bar-positive" 
+                 back-button-type="button-icon" 
+                 back-button-icon="ion-arrow-left-c"></ion-nav-bar>
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+      
+      <script id="signin.html" type="text/ng-template">
+      <ion-view title="LOGIN" left-buttons="leftButtons" right-buttons="rightButtons">
+	  
+	    <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+		<ion-nav-buttons  >     
+	
+      </ion-nav-back-button>
+    </ion-nav-bar>
+	
+        <ion-content has-header="true">
+          <div class="list">
+			
+            
+             
+            </label>
+            <label class="item item-input">
+              <span class="input-label">User ID</span>
+              <input type="text" id="uname" value="era@mybank.com">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" id="pass" value="A1@a">
+            </label>
+          </div>
+          <div class="padding">
+            <button class="button button-block button-positive" id="btnLogin">
+              Login
+            </button>
+            <p class="text-center">
+              <a href="#/MapDemo">Go To Map</a>
+            </p>
+          </div>
+		  
+		  
+        </ion-content>
+		<div class="bar bar-footer bar-balanced">
+		  <div class="title"><h6>(c)copyright ERA InfoTech Limited.All right reserved</h6></div>
+		</div>
+      </ion-view>
+    </script>
+    <script id="MapDemo.html" type="text/ng-template">
+       <ion-view title="Current Location">	  
+		  <ion-header-bar class="bar-stable">
+      <h1 class="title">Map</h1>
+    </ion-header-bar>
+	<ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Login
+      </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content scroll="false">
+      <map on-create="mapCreated(map)"></map>
+    </ion-content>
+
+    <ion-footer-bar class="bar-stable">
+      <a ng-click="centerOnMe()" id="googleMap" class="button button-icon icon ion-navigate"></a>
+    </ion-footer-bar>
+      </ion-view>
+    </script>
+	
+			
+			
+			<!--Welcome Home ***********************************************************************************************************************-->		
+			
+      <script id="welcome.html" type="text/ng-template">
+
+      <ion-view title="Dashboard" >
+	     <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+       <ion-nav-buttons side="right" >
+       <button class="button button ion-log-out"   ng-click="btnLogOut()">
+        Log out
+    </button>
+	
+      </ion-nav-back-button>
+    </ion-nav-bar>
+	
+	  
+        <ion-content has-header="true" padding="true">
+                <p>{{errorMessage}}</p>  
+        <div class="list">
+		  
+		  <div class="row">
+				  <div class="col col-50"  style="height:40px !importent"><a href="#/accBalance" class="button button-block button-positive">A/c Balance</a>.</div>
+				  <div class="col" > <a href="#/accStatement" class="button button-block button-positive">A/c Statement</a></div>
+			</div>
+            <div class="row">
+				  <div class="col col-50"  style="height:40px !importent"><a href="#/fundTranster" class="button button-block button-positive">Fund Transfer</a>.</div>
+				  <div class="col"  >  <a href="#/fundTransterRequest" class="button button-block button-positive">Standing Ins.</a>.</div>
+			</div>
+			
+			 <div class="row">
+				  <div class="col col-50"  style="height:40px !importent"> <a href="#/talkTimeRecharge" class="button button-block button-positive">Top Up</a>.</div>
+				  <div class="col" >   <a href="#/stopChequeLeaf" class="button button-block button-positive">Stop Cheque</a>.</div>
+			</div>			
+		  </div>
+        </ion-content>
+      </ion-view>
+    </script>
+	
+			
+			<!--Account Balance-->
+			
+      <script id="accBalance.html" type="text/ng-template">
+      <ion-view title="Account Balance">
+	    <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Dashboard
+      </ion-nav-back-button>
+    </ion-nav-bar>
+	
+	
+  
+        <ion-content has-header="true" padding="true">
+		
+          Account Title:{{accountTitle}}
+           <div ng-app="" >
+           <style>                
+                .color1 {
+                    background-color: #DDEEFF;
+                }
+
+                .color2 {
+                    background-color: #99CCFF;
+                }
+            </style>
+			
+			  <style>
+				table, th , td  {
+				  border: 1px solid grey;
+				  border-collapse: collapse;
+				  padding: 5px;
+				}
+				table tr:nth-child(odd)	{
+				  background-color: #f1f1f1;
+				}
+				table tr:nth-child(even) {
+				  background-color: #ffffff;
+				}
+				.fixed_headers {
+			  width: @table_width;
+			  table-layout: fixed;
+			  border-collapse: collapse;
+			  }
+				
+				
+				</style>
+          
+			
+				<ion-scroll zooming="true" direction="xy" style="width: 500px ; height:500px; margin-top:20px">	
+				<div style="width: 5000px; height: 5000px;">				
+                 <table>
+				  <thead>
+					<tr>
+					<th>SL</th>						
+					  <th>A/c Number</th>					 
+					  <th>Account Balance</th>	 
+					  <th>Account Type</th>		 
+					 
+					</tr>
+					</thead>
+					
+					  <tr ng-repeat="x in accountBalanceNodes" >
+						<td>{{x.slno }}</td>
+						<td>{{ x.accountNum }}</td>
+						<td>{{ x.availableBalance }} &nbsp;({{x.currencyCode}})</td>	
+						<td>{{x.accountType }}</td>
+											
+					  </tr>
+					</table>
+					</div>
+			</ion-scroll>			  
+            </div>             
+        </ion-content>
+      </ion-view>
+    </script>
+			
+			
+			
+			<!--Account Statement ***************************************************************************************************-->
+	
+	   <script id="accStatement.html" type="text/ng-template">
+      <ion-view title="Account Statement">
+	   <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Dashboard
+      </ion-nav-back-button>
+    </ion-nav-bar>
+        <ion-content has-header="true" padding="true">		
+	<div class="list">
+		<label class="item item-input item-select" style="padding-left:0" >			
+			<div class="row" style="padding-left:0">
+			  <div class="col" >Source A/c</div>
+			  <div class="col col-60">
+			  <select  id="mySelect"  >
+					  <option value="">-Select One-</option>
+						<option ng-repeat="x in accountListDescription" valu="{{x.sAccountNumber}}">{{x.sAccountNumber}}</option>
+						
+					</select>
+			  </div>
+			</div>
+			</label>
+			
+		 
+		 <label class="item item-input"style="padding-left:0">	
+				<div class="row">
+				  <div class="col" style="padding-left:0">From Date :</div>
+				  <div class="col col-60"><input type="text"  id="fromDate" placeholder="dd/MM/yyyy" value="01/01/2014" ></div>
+				</div>
+			</label>
+			
+				
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row">
+				  <div class="col" style="padding-left:0">To Date :</div>
+				  <div class="col col-60"><input type="text"  id="toDate" placeholder="dd/MM/yyyy" value="01/01/2015" ></div>
+				</div>
+			</label>
+			
+					
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col"></div>
+				  <div class="col col-60"><button class="button button-block button-positive" ng-click="doClick()" >Search</button></div>
+				</div>
+			</label>
+			
+	<div>
+		
+ <div class="list" style="margin-top:10px">
+			
+			
+			
+			
+			  <div ng-app="" ng-init="{{accountStatementNodes}}">
+           <style>
+				table, th , td  {
+				  border: 1px solid grey;
+				  border-collapse: collapse;
+				  padding: 5px;
+				}
+				table tr:nth-child(odd)	{
+				  background-color: #f1f1f1;
+				}
+				table tr:nth-child(even) {
+				  background-color: #ffffff;
+				}
+				</style>
+           
+                     
+        
+			<ion-scroll zooming="true" direction="xy" style="width: 500px; height:500px">
+			<div style="width: 5000px; height: 5000px;">			
+                  <table>
+					<tr>
+					  <th>SL.</th>						
+					  <th>Trans. Date</th>
+					  <th>Debt Amount</th>
+					  <th>Credit Amount</th>
+					  <th>Balance</th>
+					  <th>Naration</th>
+					</tr>
+					
+					  <tr ng-repeat="x in accountStatementNodes">
+						<td>{{x.slNo }}</td>
+						<td>{{ x.transactionDate }}</td>
+						<td>{{x.debtAmount }}</td>
+						<td>{{ x.creditAmount }}</td>
+						<td>{{x.balance }}</td>
+						<td>{{ x.naration }}</td>
+					  </tr>
+					</table>
+					
+				</div>
+			</ion-scroll>			  
+      
+            
+            
+            </div>            
+		
+			
+		</div>
+          
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	
+	<!--Fund Transfer *************************************************************************************************************-->
+	 <script id="fundTranster.html" type="text/ng-template">
+      <ion-view title="Fund Transfer">
+	   <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Dashboard
+      </ion-nav-back-button>
+    </ion-nav-bar>
+	
+        <ion-content has-header="true" padding="true">
+          <p>
+            Welcome! <strong>{{cusCode}}</strong>
+			 
+          </p> 
+		<div class="list">
+		<label class="item item-input item-select" style="padding-left:0"  >			
+			<div class="row" style="padding-left:0">
+			  <div class="col" >Source A/c</div>
+			  <div class="col col-60">
+			  <select id = "sourcecAcChangeListener" >
+					<option value="">-Select One-</option>
+				  <option ng-repeat="x in accountListDescription">{{x.sAccountDescription}}</option>
+				</select>
+			  </div>
+			</div>
+			</label>
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Account Title</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferAccountTitle" value={{accountTitle}} readonly style="padding-right:0"></div>
+				</div>
+			</label>
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Balance</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferAvailableBalance" value={{availableBalance}}  readonly style="padding-right:0"></div>
+				</div>
+			</label>
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Currency</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferCurrenyCode" value={{currencyCode}} readonly style="padding-right:0"></div>
+				</div>
+			</label>
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-right:0">
+				  <div class="col">Amount</div>
+				  <div class="col col-60"><input type="number" id="txtFundTransferAmount" ></div>
+				</div>
+			</label>
+			
+			<label class="item item-input item-select" style="padding-left:0" >			
+			<div class="row" style="padding-left:0" >
+			  <div class="col" >Destination A/c</div>
+			  <div class="col col-60">
+			  <select id = "destinationAcChangeListener" >
+					<option value="">-Select One-</option>
+				  <option ng-repeat="y in destrinationaAccountListNodes">{{y.sDestrinationAccountNo}}</option>
+				</select>
+			  </div>
+			</div>
+			</label>
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Account Title</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferDestinationAccountTitle" value={{destinationAccountTitle}} readonly style="padding-right:0"></div>
+				</div>
+			</label>
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Currency</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferDestinationCurrencyCode" value={{destinationCurrency}} readonly></div>
+				</div>
+			</label>
+			
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Remarks</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferRemarks"></div>
+				</div>
+			</label>
+			
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Pin Code</div>
+				  <div class="col col-60"><input type="password" id="txtFundTransferPinCode" ></div>
+				</div>
+			</label>		
+			<label class="item item-input" >	
+				<div class="row">
+				  <div class="col"></div>
+				  <div class="col col-60"><button class="button button-block button-positive" ng-click="doSubmit()" >Submit</button></div>
+				</div>
+			</label>
+         </div>
+		 
+		 	
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	 
+			<!--*********Fund Transfer Request***********************************************************************************-->
+					
+      <script id="fundTransterRequest.html" type="text/ng-template">
+      <ion-view title="Fund Transfer Request">
+	   <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Dashboard
+      </ion-nav-back-button>
+    </ion-nav-bar>
+        <ion-content has-header="true" padding="true">
+       
+	<div class="list">
+			
+		<label class="item item-input">	  
+		  <div class="row">
+			<div class="col">Request Date:</div>
+			<div class="col col-60"> <input type="text" id="txtRequestDate"></div>
+			</div>
+		</label>
+		
+		<label class="item item-input item-select"  >			
+			<div class="row" >
+			  <div class="col" >Source A/c</div>
+			  <div class="col col-60">
+			  <select id = "sourcecAcChangeListener" >
+					<option value="">-Select One-</option>
+				  <option ng-repeat="x in accountListDescription">{{x.sAccountDescription}}</option>
+				</select>
+			  </div>
+			</div>
+			</label>
+			
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col">Account Title</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferAccountTitle" value={{accountTitle}} readonly></div>
+				</div>
+			</label>
+			
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col">Balance</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferAvailableBalance" value={{availableBalance}}  readonly></div>
+				</div>
+			</label>
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col">Currency</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferCurrenyCode" value={{currencyCode}} readonly></div>
+				</div>
+			</label>
+			
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col">Amount</div>
+				  <div class="col col-60"><input type="number" id="txtFundTransferAmount" ></div>
+				</div>
+			</label>
+			
+			<label class="item item-input item-select"  >			
+			<div class="row" >
+			  <div class="col" >Destination A/c</div>
+			  <div class="col col-60">
+			  <select id = "destinationAcChangeListener" >
+					<option value="">-Select One-</option>
+				  <option ng-repeat="y in destrinationaAccountListNodes">{{y.sDestrinationAccountNo}}</option>
+				</select>
+			  </div>
+			</div>
+			</label>
+			
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col">Account Title</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferDestinationAccountTitle" value={{destinationAccountTitle}} readonly></div>
+				</div>
+			</label>
+			
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col">Currency</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferDestinationCurrencyCode" value={{destinationCurrency}} readonly></div>
+				</div>
+			</label>
+			
+			
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col">Remarks</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferRemarks"></div>
+				</div>
+			</label>
+			
+			
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col">Pin Code</div>
+				  <div class="col col-60"><input type="password" id="txtFundTransferPinCode" ></div>
+				</div>
+			</label>		
+			<label class="item item-input">	
+				<div class="row">
+				  <div class="col"></div>
+				  <div class="col col-60"><button class="button button-block button-positive" ng-click="doSubmit()" >Submit</button></div>
+				</div>
+			</label>
+         </div>
+       
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	
+	
+		<!-- Talk Time Recharge *******************************************************************************************************-->		
+			
+      <script id="talkTimeRecharge.html" type="text/ng-template">
+      <ion-view title="Talk Time Recharge">
+		 <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Dashboard
+      </ion-nav-back-button>
+    </ion-nav-bar>
+        <ion-content has-header="true" padding="true">
+        
+			<div class="list">
+			
+			<label class="item item-input item-select" style="padding-left:0" >			
+			<div class="row" style="padding-left:0" >
+			  <div class="col" >Source A/c</div>
+			  <div class="col col-60">
+			  <select id = "sourcecAcChangeListener" >
+					<option value="">-Select One-</option>
+				  <option ng-repeat="x in accountListDescription">{{x.sAccountDescription}}</option>
+				</select>
+			  </div>
+			</div>
+			</label>
+			
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Account Title</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferAccountTitle" value={{accountTitle}} readonly></div>
+				</div>
+			</label>
+			
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Balance</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferAvailableBalance" value={{availableBalance}}  readonly></div>
+				</div>
+			</label>
+			<label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Currency</div>
+				  <div class="col col-60"><input type="text" id="txtFundTransferCurrenyCode" value={{currencyCode}} readonly></div>
+				</div>
+			</label>
+				
+			 
+		<label class="item item-input item-select" style="padding-left:0" >			
+			<div class="row" style="padding-left:0">
+			  <div class="col" >Operator</div>
+			  <div class="col col-60">
+			  <select id = "operatorChangeListener" >
+					<option value="">-Select One-</option>
+				  <option ng-repeat="x in mobileOperatorsNamesAndCodesNodes">{{x.mobileOperatorName}}</option>
+				</select>
+			  </div>
+			</div>
+			</label>
+			  
+			  <label class="item item-input"  style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col">Mobile Type</div>
+				  <div class="col col-60">
+				  <ion-radio  id="mobileTypeRadio" ng-click="radioSubmit('PRE')"  >PrePaid</ion-radio>
+				<ion-radio  id="mobileTypeRadio"  ng-click="radioSubmit('PST')" >Post Paid</ion-radio>
+
+				</div>
+				</div>
+			</label>
+			
+			  	
+			  <label class="item item-input" style="padding-left:0">	
+				<div class="row">
+				  <div class="col">Mobile No.</div>
+				  <div class="col col-60"><input type="number" id="txtMobileNumber"></div>
+				</div>
+			</label>
+			
+			 <label class="item item-input" style="padding-left:0">	
+				<div class="row">
+				  <div class="col">Amount</div>
+				  <div class="col col-60"><input type="number" id="txtTalkTimeAmount"></div>
+				</div>
+			</label>
+			 <label class="item item-input" style="padding-left:0">	
+				<div class="row">
+				  <div class="col">Pin Code</div>
+				  <div class="col col-60"><input type="password" id="txtTalktimePinCode"></div>
+				</div>
+			</label>
+			  
+			    <label class="item item-input" style="padding-left:0">	
+				<div class="row" style="padding-left:0">
+				  <div class="col"></div>
+				  <div class="col col-60"><button class="button button-block button-positive" ng-click="doSubmit()" >Submit</button></div>
+				</div>
+			</label>
+			   
+			  
+			
+			
+          
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	  
+	  
+	  	<!--Stop Cheque Leaf *******************************************************************************************************-->		
+			
+      <script id="stopChequeLeaf.html" type="text/ng-template">
+      <ion-view title="Stop Cheque Leaf">
+	   <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
+        Dashboard
+      </ion-nav-back-button>
+    </ion-nav-bar>
+	
+        <ion-content has-header="true" padding="true">
+          <p>
+            Welcome! <strong>{{cusCode}}</strong>
+			 
+          </p> 		
+			
+			
+		<label class="item item-input item-select"  style="padding-left:0"  >			
+			<div class="row"   style="padding-left:0">
+			  <div class="col" >Source A/c</div>
+			  <div class="col col-60">
+			  <select id = "sourcecAcChangeListener" >
+					<option value="">-Select One-</option>
+				  <option ng-repeat="x in accountListDescription">{{x.sAccountDescription}}</option>
+				</select>
+			  </div>
+			</div>
+			</label>
+			
+			<label class="item item-input" style="padding-left:0" >	
+				<div class="row" style="padding-left:0">
+				  <div class="col" style="padding-left:0">Account Title</div>
+				  <div class="col" style="padding-right:0" ><input type="text" id="txtFundTransferAvailableBalance" value={{accountTitle}} style="padding-right:0; background-color:#DDDDDD;"></div>
+				</div>
+			</label>
+			
+		<label class="item item-input item-select"  style="padding-left:0"  >			
+			<div class="row"   style="padding-left:0">
+			  <div class="col" >Leaves</div>
+			  <div class="col col-60">
+			  <select id = "sourcecAcChangeListener" >
+					<option value="">-Select One-</option>
+				
+				</select>
+			  </div>
+			</div>
+			</label>
+			
+		<label class="item item-input item-select"  style="padding-left:0"  >			
+			<div class="row"   style="padding-left:0">
+			  <div class="col" >Reason</div>
+			  <div class="col col-60">
+			  <select id = "sourcecAcChangeListener" >
+					<option value="">-Select One-</option>
+				
+				</select>
+			  </div>
+			</div>
+			</label>
+			
+			
+			    <label class="item item-input">	
+				<div class="row">
+				  <div class="col"></div>
+				  <div class="col col-60"><button class="button button-block button-positive" >Submit</button></div>
+				</div>
+			</label>
+			
+					 
+        </ion-content>
+      </ion-view>
+    </script>
+	
+  </body>
+</html>
